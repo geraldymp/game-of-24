@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useRouter } from 'expo-router';
 
 interface ICard {
   id: string;
@@ -11,6 +12,8 @@ interface ICard {
 type IOperator = "+" | "-" | "*" | "/";
 
 export default function Index() {
+  const router = useRouter();
+
   const createDeck = () => {
     const suits = ["♠", "♥", "♦", "♣"];
 
@@ -74,7 +77,7 @@ export default function Index() {
       case "*":
         newValue = card1.value * card2.value;
         break;
-      case "/": 
+      case "/":
         newValue = card1.value / card2.value;
         break;
     }
@@ -85,7 +88,7 @@ export default function Index() {
     // Add new card with the result
     newHand.push({ id: Math.random().toString(), display: `${newValue}`, value: newValue });
     setHand(newHand);
-    
+
     // Add the result to the history and reset selected cards
     setResults([...results, `${card1.display} ${operator} ${card2.display} = ${newValue}`]);
     setSelectedCards([]);
@@ -158,8 +161,16 @@ export default function Index() {
       </View>
 
       {/* Restart Button */}
-      <View style={{ marginTop: 30 }}>
-        <Button title="Restart Game" onPress={restartGame} color="red" />
+      <View style={{ alignItems: "center", justifyContent: 'center', width: '100%', marginTop: 30 }}>
+        <View >
+          <Button title="Restart Game" onPress={restartGame} color="red" />
+        </View>
+        <TouchableOpacity 
+          style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', position: 'absolute', right: 10 }}
+          onPress={() => router.navigate('/help')}
+        >
+          <Text>?</Text>
+        </TouchableOpacity>
       </View>
 
     </View>
