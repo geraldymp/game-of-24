@@ -6,10 +6,10 @@ start:
 	npx expo start
 
 android:
-	npx expo start --android
+	npx expo run:android
 
 ios:
-	npx expo start --ios
+	npx expo run:ios
 
 web:
 	npx expo start --web
